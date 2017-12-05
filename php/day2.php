@@ -22,3 +22,24 @@ echo '<p>Answer 1: '.$checksum.'</p>';
 
 
 /* ----------[ Part 2 ]---------- */
+$checksum = 0;
+
+foreach($rows as $row) {
+	$nums = explode(' ', preg_replace('!\s+!', ' ', $row));
+	$count = count($nums);
+
+	for($i=0; $i<$count; $i++) {
+		$arr = $nums;
+		$divisor = $arr[$i];
+		unset($arr[$i]);
+
+		foreach($arr as $a) {
+			if($a%$divisor == 0) {
+				$checksum += $a / $divisor;
+				break;
+			}
+		}
+	}
+}
+
+echo '<p>Answer 2: '.$checksum.'</p>';
