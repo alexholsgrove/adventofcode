@@ -1,0 +1,44 @@
+<html>
+  <body>
+    <h1>Advent of Code 2021 - Day 1</h1>
+    <div>
+      <textarea data-input placeholder="paste input here"></textarea>
+    </div>
+
+    <button>Run</button>
+    <p data-answer-1></p>
+    <p data-answer-2></p>
+
+    <script>
+      const dataInput = document.querySelector('[data-input]');
+      const btn = document.querySelector('button');
+
+      btn.addEventListener('click', () => {
+        const values = dataInput.value.split("\n").map(Number);
+        
+        // Part 1
+        let previousValue = null;
+        const increases = values.reduce((total, value) => {
+            const ret = (previousValue && value > previousValue) ? 1 : 0;
+            previousValue = value;
+            return total + ret;
+        }, 0);
+        
+        // Part 2
+        let previousTotal;
+        let increases2 = 0;
+        for(i = 0; i < (values.length - values.length%3); i++) {
+          const currentTotal = values[i] + values[i+1] + values[i+2];
+          if (i > 0 && currentTotal > previousTotal) {
+            increases2++;
+          }
+          
+          previousTotal = currentTotal;
+        }
+
+        document.querySelector('[data-answer-1]').textContent = `${increases} increases`;
+        document.querySelector('[data-answer-2]').textContent = `${increases2} increases`;
+      });
+    </script>
+  </body>
+</html>
