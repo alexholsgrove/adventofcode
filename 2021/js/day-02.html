@@ -1,0 +1,34 @@
+<html>
+   <body>
+    <h1>Advent of Code 2021 - Day 2</h1>
+    <div>
+      <textarea data-input placeholder="paste input here"></textarea>
+    </div>
+
+    <button>Run</button>
+    <p data-answer-1></p>
+    <p data-answer-2></p>
+
+    <script>
+      const dataInput = document.querySelector('[data-input]');
+      const btn = document.querySelector('button');
+
+      btn.addEventListener('click', () => {
+        let x = 0, y1 = 0, y2 = 0;
+        dataInput.value.split("\n")
+          .map(command => {
+            const [direction, value] = command.split(" ");
+            if (direction == 'forward') {
+              x += parseInt(value);
+              y2 += (y1 * parseInt(value));
+            } else {
+              y1 += parseInt(direction == 'up' ? -value : value);
+            }
+          });
+
+        document.querySelector('[data-answer-1]').textContent = `Position: ${x * y1}`;
+        document.querySelector('[data-answer-2]').textContent = `Position: ${x * y2}`;
+      });
+    </script>
+  </body>
+</html>
